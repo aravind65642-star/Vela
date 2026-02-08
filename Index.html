@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 🌹</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --rose-pink: #ff4d6d;
+            --soft-blush: #fff0f3;
+        }
+
+        body {
+            background: radial-gradient(circle, #fff0f3 0%, #ffccd5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'Georgia', serif;
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 2rem;
+            box-shadow: 0 20px 50px rgba(255, 77, 109, 0.2);
+            padding: 3rem;
+            text-align: center;
+            z-index: 10;
+            width: 450px;
+            max-width: 90%;
+            transition: transform 0.3s ease;
+        }
+
+        /* Floating Rose Petals */
+        .petal {
+            position: fixed;
+            top: -10%;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                left: calc(var(--left) + 20%);
+            }
+        }
+
+        /* Heartbeat Animation for Yes */
+        .pulse-yes {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 77, 109, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0); }
+        }
+
+        #no-btn {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="glass-card animate__animated animate__fadeInDown" id="main-card">
+        <div class="mb-6 relative">
+            <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHByZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJbxTcJCf2P3REv/giphy.gif" 
+                 class="mx-auto rounded-2xl w-56 shadow-lg border-4 border-white" alt="Love gif">
+        </div>
+
+        <h2 class="text-pink-500 font-medium tracking-widest uppercase text-sm mb-2">A Special Question</h2>
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">Hey <span id="to-name" class="text-pink-600">Angel</span>...</h1>
+        <p class="text-xl text-gray-700 italic mb-8">"Will you be my Valentine?"</p>
+
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mt-4 relative h-16">
+            <button id="yes-btn" class="pulse-yes bg-gradient-to-r from-pink-500 to-rose-600 text-white text-xl px-10 py-3 rounded-full font-bold shadow-lg hover:brightness-110 transition-all z-20">
+                Yes, I will! ❤️
+            </button>
+            <button id="no-btn" class="bg-white text-gray-400 px-8 py-3 rounded-full font-semibold border border-pink-100 hover:bg-gray-50 transition-all">
+                No
+            </button>
+        </div>
+        
+        <p class="mt-10 text-pink-400 font-serif">— with love, <span id="from-name">Your Secret Admirer</span> —</p>
+    </div>
+
+    <div class="glass-card hidden animate__animated animate__zoomIn" id="success-card">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnJ2MzFpZzRma2M5bTF2eDN5eW12eXF5eW12eXF5eW12eXF5JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lTfuxV5R8eTpxe/giphy.gif" 
+             class="mx-auto rounded-2xl w-64 mb-6 shadow-xl" alt="Celebration">
+        <h1 class="text-4xl font-bold text-pink-600 mb-2">I knew you'd say yes! 🌹</h1>
+        <p class="text-gray-600 text-lg">My heart is so full. See you soon!</p>
+    </div>
+
+    <script>
+        // Personalization logic
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('from-name').innerText = urlParams.get('from') || 'Love';
+        document.getElementById('to-name').innerText = urlParams.get('to') || 'Beautiful';
+
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const mainCard = document.getElementById('main-card');
+        const successCard = document.getElementById('success-card');
+
+        // The "Catch Me If You Can" logic
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 50);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            noBtn.style.zIndex = '50';
+        });
+
+        // Floating Rose Petals Creator
+        function createPetal() {
+            const petals = ['🌹', '🌸', '❤️', '✨', '💖'];
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.innerText = petals[Math.floor(Math.random() * petals.length)];
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.setProperty('--left', (Math.random() * 20 - 10) + '%');
+            petal.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            petal.style.opacity = Math.random();
+            
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), 7000);
+        }
+
+        setInterval(createPetal, 300);
+
+        // Success Action
+        yesBtn.addEventListener('click', () => {
+            mainCard.classList.add('hidden');
+            successCard.classList.remove('hidden');
+            
+            // Burst of many petals
+            for(let i=0; i<50; i++) setTimeout(createPetal, i * 50);
+        });
+    </script>
+</body>
+</html>
