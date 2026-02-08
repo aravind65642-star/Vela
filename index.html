@@ -3,69 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine? 🌹</title>
+    <title>Be My Valentine? 💋</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
-        :root {
-            --rose-pink: #ff4d6d;
-            --soft-blush: #fff0f3;
-        }
-
         body {
-            background: radial-gradient(circle, #fff0f3 0%, #ffccd5 100%);
+            background: #fff0f3;
+            background-image: radial-gradient(#ffccd5 1px, transparent 1px);
+            background-size: 30px 30px;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            font-family: 'Georgia', serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Glassmorphism Card */
         .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            border-radius: 2rem;
-            box-shadow: 0 20px 50px rgba(255, 77, 109, 0.2);
-            padding: 3rem;
-            text-align: center;
-            z-index: 10;
-            width: 450px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 4px solid #fff;
+            box-shadow: 0 20px 40px rgba(255, 77, 109, 0.15);
+            padding: 40px;
+            width: 420px;
             max-width: 90%;
-            transition: transform 0.3s ease;
+            text-align: center;
+            position: relative;
+            z-index: 10;
         }
 
-        /* Floating Rose Petals */
-        .petal {
-            position: fixed;
-            top: -10%;
+        .kiss-sticker {
+            position: absolute;
+            width: 60px;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
             pointer-events: none;
+            z-index: 20;
+        }
+
+        #yes-btn {
+            background: linear-gradient(45deg, #ff4d6d, #ff758f);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4);
+        }
+
+        .floating-heart {
+            position: fixed;
+            font-size: 24px;
+            animation: floatUp 4s linear forwards;
             z-index: 1;
-            animation: fall linear forwards;
         }
 
-        @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-                left: calc(var(--left) + 20%);
-            }
-        }
-
-        /* Heartbeat Animation for Yes */
-        .pulse-yes {
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 77, 109, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0); }
-        }
-
-        #no-btn {
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
         .hidden { display: none; }
@@ -73,82 +68,92 @@
 </head>
 <body>
 
-    <div class="glass-card animate__animated animate__fadeInDown" id="main-card">
-        <div class="mb-6 relative">
-            <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHByZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJbxTcJCf2P3REv/giphy.gif" 
-                 class="mx-auto rounded-2xl w-56 shadow-lg border-4 border-white" alt="Love gif">
+    <div class="glass-card animate__animated animate__zoomIn" id="main-card">
+        <img src="https://img.icons8.com/emoji/96/kiss-mark.png" class="kiss-sticker -top-6 -right-6 animate__animated animate__bounceIn animate__delay-1s">
+        
+        <div class="mb-6">
+            <img src="https://media.tenor.com/9O0_m7v0y7MAAAAi/funny-animals-dog.gif" 
+                 class="mx-auto w-44 rounded-2xl border-4 border-pink-100 shadow-sm" alt="Cute sticker">
         </div>
 
-        <h2 class="text-pink-500 font-medium tracking-widest uppercase text-sm mb-2">A Special Question</h2>
-        <h1 class="text-4xl font-bold text-gray-800 mb-2">Hey <span id="to-name" class="text-pink-600">Angel</span>...</h1>
-        <p class="text-xl text-gray-700 italic mb-8">"Will you be my Valentine?"</p>
+        <h1 class="text-3xl font-extrabold text-gray-800 mb-2">
+            Hey <span id="to-name" class="text-pink-500 italic">Beautiful</span>!
+        </h1>
+        <p class="text-lg text-gray-600 mb-8">Will you make me the luckiest person and be my <b>Valentine</b>?</p>
 
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mt-4 relative h-16">
-            <button id="yes-btn" class="pulse-yes bg-gradient-to-r from-pink-500 to-rose-600 text-white text-xl px-10 py-3 rounded-full font-bold shadow-lg hover:brightness-110 transition-all z-20">
-                Yes, I will! ❤️
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 min-h-[60px]">
+            <button id="yes-btn" class="text-white px-10 py-3 rounded-full font-bold text-lg">
+                YES! 💖
             </button>
-            <button id="no-btn" class="bg-white text-gray-400 px-8 py-3 rounded-full font-semibold border border-pink-100 hover:bg-gray-50 transition-all">
+            <button id="no-btn" class="bg-gray-100 text-gray-400 px-8 py-3 rounded-full font-semibold border border-transparent">
                 No
             </button>
         </div>
-        
-        <p class="mt-10 text-pink-400 font-serif">— with love, <span id="from-name">Your Secret Admirer</span> —</p>
+
+        <div class="mt-8 text-sm text-pink-400 font-medium">
+            — With lots of love, <span id="from-name">Your Love</span> —
+        </div>
     </div>
 
-    <div class="glass-card hidden animate__animated animate__zoomIn" id="success-card">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnJ2MzFpZzRma2M5bTF2eDN5eW12eXF5eW12eXF5eW12eXF5JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lTfuxV5R8eTpxe/giphy.gif" 
-             class="mx-auto rounded-2xl w-64 mb-6 shadow-xl" alt="Celebration">
-        <h1 class="text-4xl font-bold text-pink-600 mb-2">I knew you'd say yes! 🌹</h1>
-        <p class="text-gray-600 text-lg">My heart is so full. See you soon!</p>
+    <div class="glass-card hidden animate__animated animate__heartBeat" id="success-card">
+        <img src="https://media.tenor.com/f7S7j_TfS7YAAAAi/kiss-love.gif" 
+             class="mx-auto w-56 mb-4" alt="Kissing sticker">
+        <h1 class="text-4xl font-black text-pink-600">MUAH! 💋</h1>
+        <p class="text-gray-700 mt-2 text-xl font-semibold italic">I love you! See you then!</p>
+        <button onclick="location.reload()" class="mt-6 text-xs text-gray-400 underline">Restart</button>
     </div>
 
     <script>
-        // Personalization logic
-        const urlParams = new URLSearchParams(window.location.search);
-        document.getElementById('from-name').innerText = urlParams.get('from') || 'Love';
-        document.getElementById('to-name').innerText = urlParams.get('to') || 'Beautiful';
+        // URL Personalization
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('from-name').innerText = params.get('from') || 'Your Love';
+        document.getElementById('to-name').innerText = params.get('to') || 'Beautiful';
 
         const noBtn = document.getElementById('no-btn');
         const yesBtn = document.getElementById('yes-btn');
         const mainCard = document.getElementById('main-card');
         const successCard = document.getElementById('success-card');
 
-        // The "Catch Me If You Can" logic
+        // Teleporting No Button
         noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - 150);
+            const x = Math.random() * (window.innerWidth - 120);
             const y = Math.random() * (window.innerHeight - 50);
-            
             noBtn.style.position = 'fixed';
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
-            noBtn.style.zIndex = '50';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
         });
 
-        // Floating Rose Petals Creator
-        function createPetal() {
-            const petals = ['🌹', '🌸', '❤️', '✨', '💖'];
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.innerText = petals[Math.floor(Math.random() * petals.length)];
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.setProperty('--left', (Math.random() * 20 - 10) + '%');
-            petal.style.fontSize = (Math.random() * 20 + 15) + 'px';
-            petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            petal.style.opacity = Math.random();
-            
-            document.body.appendChild(petal);
-            setTimeout(() => petal.remove(), 7000);
+        // Background Hearts
+        function spawnHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = ['❤️', '💖', '🌹', '💋'][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
         }
+        setInterval(spawnHeart, 400);
 
-        setInterval(createPetal, 300);
-
-        // Success Action
+        // Yes Button Action
         yesBtn.addEventListener('click', () => {
             mainCard.classList.add('hidden');
             successCard.classList.remove('hidden');
             
-            // Burst of many petals
-            for(let i=0; i<50; i++) setTimeout(createPetal, i * 50);
+            // Trigger Kiss Explosion
+            for(let i=0; i<30; i++) {
+                setTimeout(() => {
+                    const kiss = document.createElement('img');
+                    kiss.src = "https://img.icons8.com/emoji/96/kiss-mark.png";
+                    kiss.className = "fixed animate__animated animate__fadeOutUp";
+                    kiss.style.width = "50px";
+                    kiss.style.left = Math.random() * 100 + "vw";
+                    kiss.style.top = Math.random() * 100 + "vh";
+                    kiss.style.zIndex = "100";
+                    document.body.appendChild(kiss);
+                    setTimeout(() => kiss.remove(), 1000);
+                }, i * 100);
+            }
         });
     </script>
 </body>
