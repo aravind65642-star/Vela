@@ -9,58 +9,45 @@
     <style>
         body {
             background: #fff0f3;
-            background-image: radial-gradient(#ffccd5 1px, transparent 1px);
-            background-size: 30px 30px;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             border-radius: 30px;
-            border: 4px solid #fff;
-            box-shadow: 0 20px 40px rgba(255, 77, 109, 0.15);
+            box-shadow: 0 20px 40px rgba(255, 77, 109, 0.2);
             padding: 40px;
-            width: 420px;
+            width: 400px;
             max-width: 90%;
             text-align: center;
             position: relative;
             z-index: 10;
+            border: 2px solid white;
         }
 
-        .kiss-sticker {
+        #no-btn {
             position: absolute;
-            width: 60px;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
-            pointer-events: none;
-            z-index: 20;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            white-space: nowrap;
+            z-index: 100;
         }
 
-        #yes-btn {
-            background: linear-gradient(45deg, #ff4d6d, #ff758f);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        #yes-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4);
-        }
-
-        .floating-heart {
+        .floating-kiss {
             position: fixed;
-            font-size: 24px;
+            pointer-events: none;
+            z-index: 5;
             animation: floatUp 4s linear forwards;
-            z-index: 1;
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(110vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
         .hidden { display: none; }
@@ -68,45 +55,42 @@
 </head>
 <body>
 
-    <div class="glass-card animate__animated animate__zoomIn" id="main-card">
-        <img src="https://img.icons8.com/emoji/96/kiss-mark.png" class="kiss-sticker -top-6 -right-6 animate__animated animate__bounceIn animate__delay-1s">
-        
+    <div class="glass-card animate__animated animate__fadeIn" id="main-card">
         <div class="mb-6">
-            <img src="https://media.tenor.com/9O0_m7v0y7MAAAAi/funny-animals-dog.gif" 
-                 class="mx-auto w-44 rounded-2xl border-4 border-pink-100 shadow-sm" alt="Cute sticker">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHByZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJbxTcJCf2P3REv/giphy.gif" 
+                 class="mx-auto w-44 rounded-2xl" alt="Love Sticker">
         </div>
 
-        <h1 class="text-3xl font-extrabold text-gray-800 mb-2">
-            Hey <span id="to-name" class="text-pink-500 italic">Beautiful</span>!
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">
+            Hey <span id="to-name" class="text-pink-500">Love</span>!
         </h1>
-        <p class="text-lg text-gray-600 mb-8">Will you make me the luckiest person and be my <b>Valentine</b>?</p>
+        <p class="text-lg text-gray-600 mb-8">Will you be my Valentine?</p>
 
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 min-h-[60px]">
-            <button id="yes-btn" class="text-white px-10 py-3 rounded-full font-bold text-lg">
-                YES! 💖
+        <div class="flex justify-center gap-4 h-14 relative" id="btn-container">
+            <button id="yes-btn" class="bg-pink-500 hover:bg-pink-600 text-white px-10 py-2 rounded-full font-bold text-lg shadow-lg">
+                YES! ❤️
             </button>
-            <button id="no-btn" class="bg-gray-100 text-gray-400 px-8 py-3 rounded-full font-semibold border border-transparent">
+            <button id="no-btn" class="bg-gray-200 text-gray-600 px-8 py-2 rounded-full font-bold shadow-md">
                 No
             </button>
         </div>
 
-        <div class="mt-8 text-sm text-pink-400 font-medium">
-            — With lots of love, <span id="from-name">Your Love</span> —
+        <div class="mt-8 text-sm text-pink-400">
+            — From <span id="from-name">Someone</span> —
         </div>
     </div>
 
-    <div class="glass-card hidden animate__animated animate__heartBeat" id="success-card">
-        <img src="https://media.tenor.com/f7S7j_TfS7YAAAAi/kiss-love.gif" 
-             class="mx-auto w-56 mb-4" alt="Kissing sticker">
-        <h1 class="text-4xl font-black text-pink-600">MUAH! 💋</h1>
-        <p class="text-gray-700 mt-2 text-xl font-semibold italic">I love you! See you then!</p>
-        <button onclick="location.reload()" class="mt-6 text-xs text-gray-400 underline">Restart</button>
+    <div class="glass-card hidden animate__animated animate__bounceIn" id="success-card">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHByZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KmxmoHUGPDjfQXqGgv/giphy.gif" 
+             class="mx-auto w-48 mb-4 rounded-xl" alt="Success Sticker">
+        <h1 class="text-4xl font-black text-pink-600">YAY! 💋</h1>
+        <p class="text-gray-700 mt-2 text-xl italic">Best choice ever! Muah!</p>
     </div>
 
     <script>
-        // URL Personalization
+        // Personalization logic
         const params = new URLSearchParams(window.location.search);
-        document.getElementById('from-name').innerText = params.get('from') || 'Your Love';
+        document.getElementById('from-name').innerText = params.get('from') || 'Your Secret Admirer';
         document.getElementById('to-name').innerText = params.get('to') || 'Beautiful';
 
         const noBtn = document.getElementById('no-btn');
@@ -114,45 +98,50 @@
         const mainCard = document.getElementById('main-card');
         const successCard = document.getElementById('success-card');
 
-        // Teleporting No Button
-        noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - 120);
-            const y = Math.random() * (window.innerHeight - 50);
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
+        // FIXED: Infinite Moving "No" Button
+        const moveNoButton = () => {
+            // Screen boundaries
+            const padding = 50;
+            const maxWidth = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxHeight = window.innerHeight - noBtn.offsetHeight - padding;
+
+            // Random coordinates
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxWidth));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxHeight));
+
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+        };
+
+        // Triggers on hover AND touch for mobile users
+        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevents clicking on mobile
+            moveNoButton();
         });
 
-        // Background Hearts
-        function spawnHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'floating-heart';
-            heart.innerHTML = ['❤️', '💖', '🌹', '💋'][Math.floor(Math.random() * 4)];
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 4000);
+        // Floating Lips Animation Background
+        function spawnKiss() {
+            const kiss = document.createElement('div');
+            kiss.className = 'floating-kiss';
+            kiss.innerHTML = '💋';
+            kiss.style.left = Math.random() * 100 + 'vw';
+            kiss.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            kiss.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(kiss);
+            setTimeout(() => kiss.remove(), 4000);
         }
-        setInterval(spawnHeart, 400);
 
-        // Yes Button Action
+        setInterval(spawnKiss, 500);
+
+        // Success Action
         yesBtn.addEventListener('click', () => {
             mainCard.classList.add('hidden');
             successCard.classList.remove('hidden');
             
-            // Trigger Kiss Explosion
-            for(let i=0; i<30; i++) {
-                setTimeout(() => {
-                    const kiss = document.createElement('img');
-                    kiss.src = "https://img.icons8.com/emoji/96/kiss-mark.png";
-                    kiss.className = "fixed animate__animated animate__fadeOutUp";
-                    kiss.style.width = "50px";
-                    kiss.style.left = Math.random() * 100 + "vw";
-                    kiss.style.top = Math.random() * 100 + "vh";
-                    kiss.style.zIndex = "100";
-                    document.body.appendChild(kiss);
-                    setTimeout(() => kiss.remove(), 1000);
-                }, i * 100);
+            // Celebration explosion
+            for(let i=0; i<40; i++) {
+                setTimeout(spawnKiss, i * 100);
             }
         });
     </script>
