@@ -11,25 +11,41 @@
     
     <style>
         body {
-            background: #f8fafc;
-            background-image: radial-gradient(#cbd5e1 0.5px, transparent 0.5px);
-            background-size: 30px 30px;
+            background: #fff5f7;
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow-x: hidden;
+            overflow: hidden; /* Prevent scroll for petals */
+            margin: 0;
+        }
+
+        /* ROSE PETALS ANIMATION */
+        .petal {
+            position: fixed;
+            top: -10%;
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
         /* PREMIUM CERTIFICATE STYLING */
         .certificate-bg {
             background: #ffffff;
-            border: 15px double #B8860B; /* Dark Gold */
+            border: 15px double #B8860B;
             padding: 40px;
             position: relative;
             box-shadow: 0 40px 100px rgba(0,0,0,0.2);
-            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Paper Texture */
+            /* Removed external texture for better download compatibility */
+            background-color: #fff;
+            z-index: 10;
         }
         
         .gold-inner-border {
@@ -50,31 +66,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            border: 2px dashed #ffffff;
             transform: rotate(-10deg);
         }
 
-        .cert-title { 
-            font-family: 'Cinzel', serif; 
-            color: #4a3701;
-            letter-spacing: 4px;
-        }
+        .cert-title { font-family: 'Cinzel', serif; color: #4a3701; }
 
+        /* Fixed Signature: Force standard cursive for download reliability */
         .signature-font { 
-            font-family: 'Great Vibes', cursive; 
-            font-size: 3rem; 
+            font-family: 'Great Vibes', 'Cursive', serif; 
+            font-size: 2.5rem; 
             color: #1e293b;
+            line-height: 1;
         }
 
         #no-btn { transition: all 0.2s ease; z-index: 50; }
         .hidden { display: none !important; }
-        
-        .btn-gold {
-            background: linear-gradient(45deg, #B8860B, #D4AF37);
-            color: white;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
+        .btn-gold { background: linear-gradient(45deg, #B8860B, #D4AF37); color: white; }
     </style>
 </head>
 <body>
@@ -83,74 +90,80 @@
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="step-1" class="w-[90%] max-w-md p-10 bg-white rounded-[30px] shadow-2xl text-center animate__animated animate__fadeIn">
-        <h2 class="text-2xl font-black text-slate-800 mb-6 uppercase tracking-tight">Security Check</h2>
-        <input type="text" id="friend-name" placeholder="Enter Your Name" class="w-full p-4 border-2 border-slate-100 rounded-2xl mb-6 focus:border-yellow-600 outline-none text-center font-bold text-slate-700 transition-all">
-        <button onclick="startExperience()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all">Proceed to Portal</button>
+    <div id="step-1" class="z-20 w-[90%] max-w-md p-10 bg-white rounded-[30px] shadow-2xl text-center animate__animated animate__fadeIn">
+        <h2 class="text-2xl font-black text-slate-800 mb-6 uppercase">Security Check</h2>
+        <input type="text" id="friend-name" placeholder="Enter Your Name" class="w-full p-4 border-2 border-slate-100 rounded-2xl mb-6 focus:border-yellow-600 outline-none text-center font-bold">
+        <button onclick="startExperience()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold">Proceed to Portal</button>
     </div>
 
-    <div id="step-2" class="hidden w-[90%] max-w-md p-10 bg-white rounded-[30px] shadow-2xl text-center animate__animated animate__fadeIn">
+    <div id="step-2" class="hidden z-20 w-[90%] max-w-md p-10 bg-white rounded-[30px] shadow-2xl text-center animate__animated animate__fadeIn">
         <h2 class="cert-title text-xl mb-4">Official Renewal</h2>
-        <p class="text-slate-500 mb-10 italic">"Do you solemnly swear to remain the same crazy friend for the year 2026?"</p>
-        
+        <p class="text-slate-500 mb-10 italic">"Do you swear to remain the same crazy friend for 2026?"</p>
         <div class="flex flex-col gap-4">
-            <button onclick="goToCertificate()" class="w-full btn-gold py-4 rounded-2xl font-bold text-lg shadow-lg">Yes, I Agree</button>
-            <button id="no-btn" class="w-full py-2 text-slate-400 font-medium">No, I've matured</button>
+            <button onclick="goToCertificate()" class="w-full btn-gold py-4 rounded-2xl font-bold text-lg">Yes, I Agree</button>
+            <button id="no-btn" class="w-full py-2 text-slate-400">No, I've matured</button>
         </div>
     </div>
 
-    <div id="step-3" class="hidden flex flex-col items-center p-4 animate__animated animate__zoomIn">
+    <div id="step-3" class="hidden z-20 flex flex-col items-center p-4 animate__animated animate__zoomIn">
         <div id="certificate-capture" class="certificate-bg w-full max-w-[650px]">
             <div class="gold-inner-border">
                 <div class="official-seal">
-                    <div class="text-white text-[10px] font-bold text-center leading-tight">
-                        AUTHENTIC<br>BOND<br>2026
-                    </div>
+                    <div class="text-white text-[10px] font-bold text-center leading-tight">AUTHENTIC BOND</div>
                 </div>
-
                 <p class="text-[12px] font-bold tracking-[0.4em] text-yellow-700 mb-6 uppercase">International Friendship Council</p>
-                <h1 class="cert-title text-3xl sm:text-5xl mb-8 uppercase">Certificate of Loyalty</h1>
-                
-                <p class="text-slate-500 italic mb-2">This recognizes the unbreakable bond between</p>
-                <h2 class="text-3xl font-bold text-slate-900 mb-2 uppercase">Backiyaraj</h2>
-                <p class="text-yellow-600 text-xl font-serif">&</p>
+                <h1 class="cert-title text-3xl mb-8 uppercase">Certificate of Loyalty</h1>
+                <p class="text-slate-500 italic mb-2">Recognizing the bond between</p>
+                <h2 class="text-3xl font-bold text-slate-900 mb-2">Backiyaraj</h2>
+                <p class="text-yellow-600 text-xl">&</p>
                 <h2 id="cert-friend-name" class="text-3xl font-bold text-slate-900 mb-8 uppercase">NAME</h2>
-
-                <p class="text-sm text-slate-700 max-w-md mx-auto mb-12 leading-relaxed font-semibold px-4">
-                    This certificate guarantees 365 days of laughter, support, and late-night chats. Any attempt to break this bond will be considered a violation of the Friendship Act of 2026.
-                </p>
+                <p class="text-xs text-slate-700 max-w-sm mx-auto mb-12">Guarantees 365 days of laughter and support under the Friendship Act of 2026.</p>
                 
                 <div class="flex justify-around items-end mt-16 pb-8">
                     <div class="text-center">
                         <div class="signature-font">Backiyaraj</div>
-                        <div class="w-32 h-[1px] bg-slate-400 mx-auto"></div>
-                        <p class="text-[10px] uppercase font-bold text-slate-500 mt-2">Party A (Legend)</p>
+                        <div class="w-24 h-[1px] bg-slate-400 mx-auto"></div>
+                        <p class="text-[9px] uppercase font-bold text-slate-500">Party A</p>
                     </div>
                     <div class="text-center">
                         <div id="sig-friend" class="signature-font">Friend</div>
-                        <div class="w-32 h-[1px] bg-slate-400 mx-auto"></div>
-                        <p class="text-[10px] uppercase font-bold text-slate-500 mt-2">Party B (Partner in Crime)</p>
+                        <div class="w-24 h-[1px] bg-slate-400 mx-auto"></div>
+                        <p class="text-[9px] uppercase font-bold text-slate-500">Party B</p>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <button onclick="downloadCertificate()" class="mt-8 btn-gold px-12 py-5 rounded-full font-black shadow-2xl flex items-center gap-3 hover:scale-105 active:scale-95 transition-all">
+        <button onclick="downloadCertificate()" class="mt-8 btn-gold px-12 py-5 rounded-full font-black shadow-2xl hover:scale-105 transition-all">
             📥 DOWNLOAD HD CERTIFICATE
         </button>
     </div>
 
     <script>
+        // ROSE PETAL GENERATOR
+        function createPetals() {
+            const petalCount = 30;
+            const colors = ['#ffb7c5', '#ff99aa', '#f8bbd0'];
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.innerHTML = '🌸'; // You can use '🌹' or SVG
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                petal.style.opacity = Math.random();
+                document.body.appendChild(petal);
+            }
+        }
+        createPetals();
+
         const music = document.getElementById('bg-music');
         let friendName = "";
 
         function startExperience() {
             friendName = document.getElementById('friend-name').value;
-            if (!friendName.trim()) { alert("Please enter your name!"); return; }
-            
-            // Start Music on Interaction
-            music.play().catch(e => console.log("Music play blocked until next click"));
-            
+            if (!friendName.trim()) { alert("Enter Name!"); return; }
+            music.play();
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
         }
@@ -162,7 +175,7 @@
             document.getElementById('sig-friend').innerText = friendName;
         }
 
-        // Runaway Button Logic
+        // NO BUTTON RUNAWAY
         const noBtn = document.getElementById('no-btn');
         noBtn.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - 100);
@@ -172,23 +185,25 @@
             noBtn.style.top = y + 'px';
         });
 
-        // HD Download Logic
+        // FIXED DOWNLOAD LOGIC
         function downloadCertificate() {
             const cert = document.getElementById('certificate-capture');
             const btn = event.currentTarget;
-            btn.innerText = "Processing...";
+            btn.innerText = "Generating...";
 
+            // Wait a split second for fonts to be ready
             html2canvas(cert, { 
-                scale: 4, // Ultra high resolution
+                scale: 3, 
                 useCORS: true,
-                logging: false,
+                allowTaint: true,
+                letterRendering: true,
                 backgroundColor: "#ffffff"
             }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `Friendship_Certificate_2026_${friendName}.png`;
-                link.href = canvas.toDataURL('image/png', 1.0);
+                link.download = `Friendship_2026.png`;
+                link.href = canvas.toDataURL('image/png');
                 link.click();
-                btn.innerHTML = "📥 DOWNLOAD HD CERTIFICATE";
+                btn.innerText = "📥 DOWNLOAD HD CERTIFICATE";
             });
         }
     </script>
