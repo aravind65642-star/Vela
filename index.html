@@ -7,166 +7,136 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;600&family=Pinyon+Script&display=swap');
-
         body {
-            background: #fdfdfd;
-            background-image: radial-gradient(#d1d5db 0.5px, transparent 0.5px);
-            background-size: 20px 20px;
+            background: #f8fafc;
+            background-image: radial-gradient(#cbd5e1 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
+            overflow-x: hidden;
         }
 
-        /* GOLD CERTIFICATE STYLING */
+        /* PREMIUM CERTIFICATE STYLING */
         .certificate-bg {
-            background: #fff;
-            border: 12px double #D4AF37; /* Gold Metallic Border */
-            padding: 35px;
+            background: #ffffff;
+            border: 15px double #B8860B; /* Dark Gold */
+            padding: 40px;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.2);
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Paper Texture */
         }
         
         .gold-inner-border {
-            border: 2px solid #C5A028;
-            padding: 25px;
+            border: 3px solid #D4AF37;
+            padding: 30px;
             text-align: center;
             position: relative;
         }
 
-        /* ROYAL SEAL STAMP */
         .official-seal {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 80px;
-            height: 80px;
-            background: #D4AF37;
+            bottom: 30px;
+            right: 30px;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #D4AF37, #B8860B);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            border: 2px dashed #856404;
-            transform: rotate(-15deg);
-        }
-        .seal-inner {
-            border: 2px solid #fff;
-            border-radius: 50%;
-            width: 85%;
-            height: 85%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 8px;
-            font-weight: bold;
-            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 2px dashed #ffffff;
+            transform: rotate(-10deg);
         }
 
         .cert-title { 
-            font-family: 'Playfair Display', serif; 
-            color: #856404;
-            letter-spacing: 2px;
+            font-family: 'Cinzel', serif; 
+            color: #4a3701;
+            letter-spacing: 4px;
         }
 
         .signature-font { 
-            font-family: 'Pinyon Script', cursive; 
-            font-size: 2.8rem; 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 3rem; 
             color: #1e293b;
-            line-height: 1;
         }
 
+        #no-btn { transition: all 0.2s ease; z-index: 50; }
         .hidden { display: none !important; }
-
-        #no-btn { transition: all 0.15s ease-out; z-index: 1000; }
         
         .btn-gold {
-            background: linear-gradient(45deg, #D4AF37, #F1D36E);
-            color: #4a3701;
+            background: linear-gradient(45deg, #B8860B, #D4AF37);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
 
     <audio id="bg-music" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="step-1" class="w-full max-w-md p-10 bg-white rounded-[40px] shadow-2xl text-center animate__animated animate__fadeIn">
-        <div class="w-16 h-16 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-6">
-            <span class="text-2xl">🖋️</span>
-        </div>
-        <h2 class="text-2xl font-extrabold text-slate-800 mb-2">Friendship Registry</h2>
-        <p class="text-slate-400 text-sm mb-8">Enter your name to access the document.</p>
-        <input type="text" id="friend-name" placeholder="Full Name" class="w-full p-4 border-2 border-slate-100 rounded-2xl mb-6 focus:border-yellow-500 outline-none text-center font-bold text-slate-700">
-        <button onclick="goToContract()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-lg">Continue to Portal</button>
+    <div id="step-1" class="w-[90%] max-w-md p-10 bg-white rounded-[30px] shadow-2xl text-center animate__animated animate__fadeIn">
+        <h2 class="text-2xl font-black text-slate-800 mb-6 uppercase tracking-tight">Security Check</h2>
+        <input type="text" id="friend-name" placeholder="Enter Your Name" class="w-full p-4 border-2 border-slate-100 rounded-2xl mb-6 focus:border-yellow-600 outline-none text-center font-bold text-slate-700 transition-all">
+        <button onclick="startExperience()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all">Proceed to Portal</button>
     </div>
 
-    <div id="step-2" class="hidden w-full max-w-md p-10 bg-white rounded-[40px] shadow-2xl text-center animate__animated animate__fadeIn">
-        <div class="inline-block px-3 py-1 bg-yellow-50 text-yellow-700 rounded-full text-[10px] font-black tracking-widest uppercase mb-6">Action Required</div>
-        <h2 class="text-2xl font-bold text-slate-900 mb-2">Official Renewal</h2>
-        <p class="text-slate-500 text-sm italic mb-10 leading-relaxed">
-            "By clicking below, you confirm the 2026 friendship renewal with <b>Backiyaraj</b>."
-        </p>
+    <div id="step-2" class="hidden w-[90%] max-w-md p-10 bg-white rounded-[30px] shadow-2xl text-center animate__animated animate__fadeIn">
+        <h2 class="cert-title text-xl mb-4">Official Renewal</h2>
+        <p class="text-slate-500 mb-10 italic">"Do you solemnly swear to remain the same crazy friend for the year 2026?"</p>
         
         <div class="flex flex-col gap-4">
-            <button onclick="goToCertificate()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-lg">Accept & Sign</button>
-            <div class="h-12">
-                <button id="no-btn" class="w-full py-2 text-slate-400 font-semibold rounded-xl border border-slate-100 bg-slate-50">Decline Forever</button>
-            </div>
+            <button onclick="goToCertificate()" class="w-full btn-gold py-4 rounded-2xl font-bold text-lg shadow-lg">Yes, I Agree</button>
+            <button id="no-btn" class="w-full py-2 text-slate-400 font-medium">No, I've matured</button>
         </div>
     </div>
 
-    <div id="step-3" class="hidden flex flex-col items-center animate__animated animate__zoomIn">
-        <div id="certificate-capture" class="certificate-bg w-[360px] sm:w-[650px] mb-8">
+    <div id="step-3" class="hidden flex flex-col items-center p-4 animate__animated animate__zoomIn">
+        <div id="certificate-capture" class="certificate-bg w-full max-w-[650px]">
             <div class="gold-inner-border">
-                
                 <div class="official-seal">
-                    <div class="seal-inner">
-                        <span>★ ★ ★</span>
-                        <span>OFFICIAL</span>
-                        <span>BOND</span>
-                        <span>2026</span>
+                    <div class="text-white text-[10px] font-bold text-center leading-tight">
+                        AUTHENTIC<br>BOND<br>2026
                     </div>
                 </div>
 
-                <p class="text-[10px] font-bold tracking-[0.5em] text-yellow-700 mb-4 uppercase">The Permanent Bond Registry</p>
-                <h1 class="cert-title text-3xl sm:text-5xl mb-6 uppercase">Certificate of Renewal</h1>
-                <p class="text-slate-600 italic mb-4">This hereby certifies the unbreakable bond between</p>
+                <p class="text-[12px] font-bold tracking-[0.4em] text-yellow-700 mb-6 uppercase">International Friendship Council</p>
+                <h1 class="cert-title text-3xl sm:text-5xl mb-8 uppercase">Certificate of Loyalty</h1>
                 
-                <div class="py-4">
-                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 uppercase underline decoration-yellow-500">Backiyaraj</h2>
-                    <p class="text-yellow-600 font-bold my-2">&</p>
-                    <h2 id="cert-friend-name" class="text-2xl sm:text-3xl font-bold text-slate-900 uppercase underline decoration-yellow-500">NAME</h2>
-                </div>
+                <p class="text-slate-500 italic mb-2">This recognizes the unbreakable bond between</p>
+                <h2 class="text-3xl font-bold text-slate-900 mb-2 uppercase">Backiyaraj</h2>
+                <p class="text-yellow-600 text-xl font-serif">&</p>
+                <h2 id="cert-friend-name" class="text-3xl font-bold text-slate-900 mb-8 uppercase">NAME</h2>
 
-                <p class="text-sm text-slate-700 max-w-md mx-auto my-8 leading-relaxed font-semibold">
-                    Are hereby bound by the 2026 Friendship Act. Valid for unlimited support, brotherhood, and a lifetime of shared memories.
+                <p class="text-sm text-slate-700 max-w-md mx-auto mb-12 leading-relaxed font-semibold px-4">
+                    This certificate guarantees 365 days of laughter, support, and late-night chats. Any attempt to break this bond will be considered a violation of the Friendship Act of 2026.
                 </p>
                 
-                <div class="flex justify-around items-end mt-12 pb-10">
+                <div class="flex justify-around items-end mt-16 pb-8">
                     <div class="text-center">
-                        <div class="signature-font mb-[-10px]">Backiyaraj</div>
+                        <div class="signature-font">Backiyaraj</div>
                         <div class="w-32 h-[1px] bg-slate-400 mx-auto"></div>
-                        <p class="text-[9px] uppercase font-black text-slate-500 mt-2">Executive Partner</p>
+                        <p class="text-[10px] uppercase font-bold text-slate-500 mt-2">Party A (Legend)</p>
                     </div>
                     <div class="text-center">
-                        <div id="sig-friend" class="signature-font mb-[-10px]">Friend</div>
+                        <div id="sig-friend" class="signature-font">Friend</div>
                         <div class="w-32 h-[1px] bg-slate-400 mx-auto"></div>
-                        <p class="text-[9px] uppercase font-black text-slate-500 mt-2">Certified Bestie</p>
+                        <p class="text-[10px] uppercase font-bold text-slate-500 mt-2">Party B (Partner in Crime)</p>
                     </div>
                 </div>
             </div>
         </div>
         
-        <button onclick="downloadCertificate()" class="btn-gold px-10 py-4 rounded-full font-black shadow-lg flex items-center gap-3 active:scale-95 transition-all">
-            📥 DOWNLOAD ORIGINAL CERTIFICATE
+        <button onclick="downloadCertificate()" class="mt-8 btn-gold px-12 py-5 rounded-full font-black shadow-2xl flex items-center gap-3 hover:scale-105 active:scale-95 transition-all">
+            📥 DOWNLOAD HD CERTIFICATE
         </button>
     </div>
 
@@ -174,13 +144,15 @@
         const music = document.getElementById('bg-music');
         let friendName = "";
 
-        function goToContract() {
+        function startExperience() {
             friendName = document.getElementById('friend-name').value;
-            if (!friendName.trim()) { alert("Name required!"); return; }
+            if (!friendName.trim()) { alert("Please enter your name!"); return; }
+            
+            // Start Music on Interaction
+            music.play().catch(e => console.log("Music play blocked until next click"));
+            
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
-            document.getElementById('display-name').innerText = friendName;
-            music.play();
         }
 
         function goToCertificate() {
@@ -190,24 +162,33 @@
             document.getElementById('sig-friend').innerText = friendName;
         }
 
+        // Runaway Button Logic
         const noBtn = document.getElementById('no-btn');
-        const moveNo = () => {
-            const x = Math.random() * (window.innerWidth - 150);
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - 100);
             const y = Math.random() * (window.innerHeight - 50);
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
-        };
-        noBtn.addEventListener('mouseenter', moveNo);
-        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNo(); });
+        });
 
+        // HD Download Logic
         function downloadCertificate() {
             const cert = document.getElementById('certificate-capture');
-            html2canvas(cert, { scale: 3 }).then(canvas => {
+            const btn = event.currentTarget;
+            btn.innerText = "Processing...";
+
+            html2canvas(cert, { 
+                scale: 4, // Ultra high resolution
+                useCORS: true,
+                logging: false,
+                backgroundColor: "#ffffff"
+            }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `Friendship_Certificate_2026.png`;
-                link.href = canvas.toDataURL('image/png');
+                link.download = `Friendship_Certificate_2026_${friendName}.png`;
+                link.href = canvas.toDataURL('image/png', 1.0);
                 link.click();
+                btn.innerHTML = "📥 DOWNLOAD HD CERTIFICATE";
             });
         }
     </script>
