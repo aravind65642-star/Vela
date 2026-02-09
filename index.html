@@ -32,31 +32,33 @@
 
         @keyframes fall {
             0% { transform: translateY(0vh) rotate(0deg) translateX(0px); opacity: 1; }
-            50% { transform: translateY(50vh) rotate(180deg) translateX(50px); }
-            100% { transform: translateY(110vh) rotate(360deg) translateX(-50px); opacity: 0; }
+            50% { transform: translateY(50vh) rotate(180deg) translateX(40px); }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(-40px); opacity: 0; }
         }
 
-        /* CERTIFICATE STYLE */
-        .certificate-bg {
+        /* CERTIFICATE STYLE - Optimized for capture */
+        #certificate-capture {
             background: #ffffff;
             border: 12px double #B8860B;
-            padding: 30px;
+            padding: 35px;
             position: relative;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 600px;
         }
         
         .gold-inner-border {
             border: 2px solid #D4AF37;
             padding: 25px;
             text-align: center;
+            background: white;
         }
 
         .official-seal {
             position: absolute;
-            bottom: 25px;
-            right: 25px;
-            width: 80px;
-            height: 80px;
+            bottom: 30px;
+            right: 30px;
+            width: 85px;
+            height: 85px;
             background: linear-gradient(135deg, #D4AF37, #B8860B);
             border-radius: 50%;
             display: flex;
@@ -64,17 +66,18 @@
             justify-content: center;
             transform: rotate(-10deg);
             border: 2px dashed #fff;
+            z-index: 5;
         }
 
         .cert-title { font-family: 'Cinzel', serif; color: #4a3701; }
 
-        /* Signature Fix for Download */
+        /* Signature Font Fix */
         .signature-font { 
-            font-family: 'Great Vibes', cursive; 
-            font-size: 2.2rem; 
+            font-family: 'Great Vibes', cursive !important; 
+            font-size: 2.5rem; 
             color: #1e293b;
-            display: block;
-            min-height: 50px;
+            display: inline-block;
+            margin-bottom: -10px;
         }
 
         .hidden { display: none !important; }
@@ -87,26 +90,17 @@
         <source src="https://md-ak-ash-01.mobcup.net/ringtone/paiya-movie-thuli-thuli-song-bgm-61474/mp3" type="audio/mpeg">
     </audio>
 
-    <div id="step-1" class="z-20 w-[90%] max-w-md p-10 bg-white rounded-[30px] shadow-2xl text-center animate__animated animate__fadeIn">
+    <div id="step-1" class="z-20 w-[90%] max-w-md p-10 bg-white rounded-[30px] shadow-2xl text-center">
         <h2 class="text-2xl font-black text-slate-800 mb-6 uppercase">Friendship Portal</h2>
-        <input type="text" id="friend-name" placeholder="Enter Your Name" class="w-full p-4 border-2 border-slate-100 rounded-2xl mb-6 focus:border-yellow-600 outline-none text-center font-bold">
-        <button onclick="startExperience()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all">Enter</button>
-    </div>
-
-    <div id="step-2" class="hidden z-20 w-[90%] max-w-md p-10 bg-white rounded-[30px] shadow-2xl text-center animate__animated animate__fadeIn">
-        <h2 class="cert-title text-xl mb-4">Final Confirmation</h2>
-        <p class="text-slate-500 mb-10 italic">"Ready to handle another year of being Backiyaraj's partner in crime?"</p>
-        <div class="flex flex-col gap-4">
-            <button onclick="goToCertificate()" class="w-full btn-gold py-4 rounded-2xl font-bold text-lg shadow-lg">Confirm Renewal</button>
-            <button id="no-btn" class="w-full py-2 text-slate-400 font-medium">No, I want peace</button>
-        </div>
+        <input type="text" id="friend-name" placeholder="Enter Your Name" class="w-full p-4 border-2 border-slate-100 rounded-2xl mb-6 text-center font-bold">
+        <button onclick="startExperience()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold">Enter</button>
     </div>
 
     <div id="step-3" class="hidden z-20 flex flex-col items-center p-4 animate__animated animate__zoomIn">
-        <div id="certificate-capture" class="certificate-bg w-full max-w-[600px]">
+        <div id="certificate-capture">
             <div class="gold-inner-border">
                 <div class="official-seal">
-                    <div class="text-white text-[8px] font-bold text-center uppercase">Best<br>Friend<br>2026</div>
+                    <div class="text-white text-[9px] font-bold text-center uppercase">Best<br>Friend<br>2026</div>
                 </div>
 
                 <p class="text-[10px] font-bold tracking-[0.3em] text-yellow-700 mb-4 uppercase">International Friendship Council</p>
@@ -116,45 +110,43 @@
                 <h2 id="cert-friend-name" class="text-3xl font-bold text-slate-900 mb-4 uppercase underline decoration-yellow-500">NAME</h2>
                 
                 <p class="text-slate-500 italic text-sm mb-1">In Partnership with</p>
-                <h2 class="text-2xl font-bold text-slate-800 mb-6 uppercase">Backiyaraj</h2>
+                <h2 class="text-2xl font-bold text-slate-800 mb-8 uppercase">Backiyaraj</h2>
 
-                <p class="text-[11px] text-slate-600 max-w-sm mx-auto mb-10 leading-relaxed font-semibold">
-                    This document certifies that the above-named person is officially stuck with Backiyaraj for the year 2026. Non-transferable and legally binding.
+                <p class="text-[12px] text-slate-600 max-w-sm mx-auto mb-12 font-semibold">
+                    This document certifies that the above-named person is officially stuck with Backiyaraj for the year 2026.
                 </p>
                 
-                <div class="flex justify-around items-end mt-10 pb-6">
+                <div class="flex justify-around items-end mt-12 pb-6">
                     <div class="text-center">
                         <span class="signature-font">Backiyaraj</span>
-                        <div class="w-24 h-[1px] bg-slate-400 mx-auto"></div>
-                        <p class="text-[9px] uppercase font-bold text-slate-500 mt-1">Party A (Legend)</p>
+                        <div class="w-24 h-[1.5px] bg-slate-400 mx-auto"></div>
+                        <p class="text-[10px] uppercase font-bold text-slate-500 mt-2">Party A (Legend)</p>
                     </div>
                     <div class="text-center">
                         <span id="sig-friend" class="signature-font">Friend</span>
-                        <div class="w-24 h-[1px] bg-slate-400 mx-auto"></div>
-                        <p class="text-[9px] uppercase font-bold text-slate-500 mt-1">Party B (Partner)</p>
+                        <div class="w-24 h-[1.5px] bg-slate-400 mx-auto"></div>
+                        <p class="text-[10px] uppercase font-bold text-slate-500 mt-2">Party B (Partner)</p>
                     </div>
                 </div>
             </div>
         </div>
         
-        <button onclick="downloadCertificate()" class="mt-8 btn-gold px-12 py-5 rounded-full font-black shadow-2xl flex items-center gap-3 hover:scale-105 active:scale-95 transition-all">
-            📥 DOWNLOAD HD CERTIFICATE
+        <button id="downloadBtn" onclick="downloadCertificate()" class="mt-8 btn-gold px-12 py-5 rounded-full font-black shadow-2xl flex items-center gap-3">
+            📥 DOWNLOAD ULTRA HD
         </button>
     </div>
 
     <script>
-        // ROSE PETALS GENERATOR
+        // Rose Petals Logic
         function createPetals() {
-            const container = document.body;
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 20; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'petal';
-                // Using a mix of soft pink petal colors/shapes
-                petal.innerHTML = `<svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 0C15 5 20 10 10 20C0 10 5 5 10 0Z" fill="${['#ffb7c5','#f48fb1','#ffc1e3'][Math.floor(Math.random()*3)]}"/></svg>`;
+                petal.innerHTML = `<svg width="15" height="15" viewBox="0 0 20 20"><path d="M10 0C15 5 20 10 10 20C0 10 5 5 10 0Z" fill="#f48fb1"/></svg>`;
                 petal.style.left = Math.random() * 100 + 'vw';
                 petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
                 petal.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(petal);
+                document.body.appendChild(petal);
             }
         }
         createPetals();
@@ -164,43 +156,36 @@
 
         function startExperience() {
             fName = document.getElementById('friend-name').value;
-            if (!fName.trim()) { alert("Please enter your name!"); return; }
-            music.play().catch(() => console.log("Music play pending interaction"));
+            if (!fName.trim()) { alert("Please enter name"); return; }
+            music.play();
             document.getElementById('step-1').classList.add('hidden');
-            document.getElementById('step-2').classList.remove('hidden');
-        }
-
-        function goToCertificate() {
-            document.getElementById('step-2').classList.add('hidden');
             document.getElementById('step-3').classList.remove('hidden');
             document.getElementById('cert-friend-name').innerText = fName;
             document.getElementById('sig-friend').innerText = fName;
         }
 
-        const noBtn = document.getElementById('no-btn');
-        noBtn.addEventListener('mouseover', () => {
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
-            noBtn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
-        });
-
-        // HD Download Fix (ensures text and signatures appear)
-        function downloadCertificate() {
+        // ULTRA HD DOWNLOAD FIX
+        async function downloadCertificate() {
             const cert = document.getElementById('certificate-capture');
-            const btn = event.currentTarget;
-            btn.innerText = "Processing...";
+            const btn = document.getElementById('downloadBtn');
+            btn.innerText = "Enhancing Quality...";
+
+            // Small delay to ensure browser finishes rendering the name
+            await new Promise(resolve => setTimeout(resolve, 500));
 
             html2canvas(cert, { 
-                scale: 3, 
-                backgroundColor: "#ffffff",
+                scale: 4, // 4x Resolution
                 useCORS: true,
-                logging: false
+                allowTaint: false,
+                backgroundColor: "#ffffff",
+                windowWidth: cert.scrollWidth,
+                windowHeight: cert.scrollHeight
             }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `Friendship_Certificate_2026.png`;
-                link.href = canvas.toDataURL('image/png', 1.0);
+                link.download = `Friendship_HD_${fName}.png`;
+                link.href = canvas.toDataURL('image/png', 1.0); // 1.0 is max quality
                 link.click();
-                btn.innerText = "📥 DOWNLOAD HD CERTIFICATE";
+                btn.innerText = "📥 DOWNLOAD ULTRA HD";
             });
         }
     </script>
