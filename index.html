@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Do You Love Me? 🌹</title>
+    <title>Will You Be My Valentine? 🌹</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
@@ -38,25 +38,19 @@
             z-index: 10;
         }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-        }
+        h1 { font-family: 'Playfair Display', serif; }
 
         .btn-yes {
             background: var(--primary);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+            color: white;
         }
 
-        .btn-yes:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 15px 25px rgba(255, 77, 109, 0.4);
-        }
-
+        /* Essential for the "No" button to start in position but move freely later */
         #no-btn {
-            position: fixed;
-            z-index: 1000;
             transition: all 0.2s ease;
+            position: relative; 
         }
 
         .floating-element {
@@ -87,23 +81,23 @@
 
         <p class="text-pink-500 uppercase tracking-[0.2em] text-xs font-semibold mb-3">Invitation</p>
         <h1 class="text-4xl text-gray-800 font-bold mb-4">
-            Hello, <span id="to-name" class="italic">Beautiful</span>
+            Hello, <span class="italic text-pink-600">Velavan</span>
         </h1>
         <p class="text-gray-500 leading-relaxed mb-10 text-lg">
             I’ve been thinking of a way to ask you something special... Will you be my Valentine?
         </p>
 
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <button id="yes-btn" class="btn-yes w-full sm:w-auto text-white px-12 py-4 rounded-2xl font-bold text-lg">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6" id="btn-container">
+            <button id="yes-btn" class="btn-yes w-full sm:w-auto px-12 py-4 rounded-2xl font-bold text-lg">
                 Yes, I will ❤️
             </button>
-            <button id="no-btn" class="w-full sm:w-auto bg-white text-gray-400 px-10 py-4 rounded-2xl font-medium border border-gray-100 hover:bg-gray-50 transition-all">
+            <button id="no-btn" class="w-full sm:w-auto bg-white text-gray-400 px-10 py-4 rounded-2xl font-medium border border-gray-100 hover:bg-gray-50">
                 No
             </button>
         </div>
 
         <div class="mt-12 opacity-40">
-            <p class="text-xs tracking-widest uppercase">— <span id="from-name">Your Love</span> —</p>
+            <p class="text-xs tracking-widest uppercase">— Your Valentine —</p>
         </div>
     </div>
 
@@ -112,36 +106,39 @@
              class="w-48 h-48 mx-auto rounded-3xl mb-8 shadow-xl border-4 border-white" alt="Happy Cat">
         <h1 class="text-4xl text-pink-600 font-bold mb-4">Yay! It's a Date 💋</h1>
         <p class="text-gray-500 italic text-lg leading-relaxed">
-            "You just made my entire year. See you on the 14th!"
+            "You just made my entire year, Velavan. See you on the 14th!"
         </p>
     </div>
 
     <script>
-        // URL Customization
-        const urlParams = new URLSearchParams(window.location.search);
-        document.getElementById('from-name').innerText = urlParams.get('from') || 'Your Love';
-        document.getElementById('to-name').innerText = urlParams.get('to') || 'there';
-
         const noBtn = document.getElementById('no-btn');
         const yesBtn = document.getElementById('yes-btn');
         const mainCard = document.getElementById('main-card');
         const successCard = document.getElementById('success-card');
 
-        // Advanced Infinite "No" Movement
+        // Function to move the "No" button
         const moveNo = () => {
-            const padding = 60;
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding) + (padding/2);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding) + (padding/2);
+            // Calculate random position within viewport
+            const padding = 100;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
             
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+            
             noBtn.style.position = 'fixed';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
         };
 
+        // Event Listeners for the "No" button
         noBtn.addEventListener('mouseenter', moveNo);
-        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNo(); });
+        noBtn.addEventListener('touchstart', (e) => { 
+            e.preventDefault(); 
+            moveNo(); 
+        });
 
-        // High-Quality Floating Elements
+        // Background Animations
         function createFloater(symbol) {
             const el = document.createElement('div');
             el.className = 'floating-element';
@@ -153,15 +150,12 @@
             setTimeout(() => el.remove(), 5000);
         }
 
-        // Constant Ambient Hearts
         setInterval(() => createFloater(['❤️','🌸','✨'][Math.floor(Math.random()*3)]), 800);
 
-        // Success Event
+        // Success Action
         yesBtn.addEventListener('click', () => {
             mainCard.classList.add('hidden');
             successCard.classList.remove('hidden');
-            
-            // Kiss Rain Explosion
             for(let i=0; i<60; i++) {
                 setTimeout(() => createFloater('💋'), i * 50);
             }
