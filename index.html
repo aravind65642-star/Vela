@@ -3,20 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine? 🌹</title>
+    <title>A Special Invitation 💌</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;600&display=swap');
-
-        :root {
-            --primary: #ff4d6d;
-            --bg: #fff5f6;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500;700&display=swap');
 
         body {
-            background-color: var(--bg);
-            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at center, #ff85a1 0%, #fdcae1 100%);
+            font-family: 'Quicksand', sans-serif;
             overflow: hidden;
             margin: 0;
             display: flex;
@@ -25,45 +20,53 @@
             min-height: 100vh;
         }
 
-        .premium-card {
+        #canvas { position: fixed; inset: 0; z-index: 1; }
+
+        .love-card {
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 40px;
-            box-shadow: 0 25px 50px -12px rgba(255, 77, 109, 0.15);
             padding: 3rem;
-            width: 440px;
+            width: 420px;
             max-width: 90%;
             text-align: center;
             z-index: 10;
+            box-shadow: 0 25px 50px rgba(255, 77, 109, 0.3);
         }
 
-        h1 { font-family: 'Playfair Display', serif; }
+        h1 { font-family: 'Dancing Script', cursive; }
 
         .btn-yes {
-            background: var(--primary);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+            background: linear-gradient(45deg, #ff4d6d, #ff758f);
             color: white;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Essential for the "No" button to start in position but move freely later */
-        #no-btn {
-            transition: all 0.2s ease;
-            position: relative; 
+        #no-btn { position: fixed; transition: all 0.2s ease; z-index: 1000; }
+
+        /* Music Floating Button */
+        #music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: white;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
         }
 
-        .floating-element {
+        .heart-particle {
             position: fixed;
             pointer-events: none;
-            z-index: 1;
-            animation: floatUp 5s linear forwards;
+            z-index: 20;
+            animation: heartFloat 3s ease-out forwards;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg) scale(0.5); opacity: 0; }
-            20% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+        @keyframes heartFloat {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
         }
 
         .hidden { display: none !important; }
@@ -71,95 +74,142 @@
 </head>
 <body>
 
-    <div class="premium-card animate__animated animate__fadeInUp" id="main-card">
-        <div class="relative inline-block mb-8">
-            <div class="absolute inset-0 bg-pink-200 blur-2xl opacity-30 rounded-full"></div>
+    <canvas id="canvas"></canvas>
+
+    <div id="music-control" onclick="toggleMusic()">
+        <span id="music-icon">🎵</span>
+    </div>
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="love-card animate__animated animate__zoomIn" id="main-card">
+        <div class="relative inline-block mb-6">
+            <div class="absolute -inset-4 bg-pink-300 blur-xl opacity-40 rounded-full animate-pulse"></div>
             <img src="https://media.giphy.com/media/KmxmoHUGPDjfQXqGgv/giphy.gif" 
-                 class="relative w-48 h-48 object-cover rounded-3xl shadow-lg border-4 border-white" 
-                 alt="Valentine Cat">
+                 class="relative w-44 h-44 object-cover rounded-full border-4 border-white shadow-lg" alt="Cute Cat">
         </div>
 
-        <p class="text-pink-500 uppercase tracking-[0.2em] text-xs font-semibold mb-3">Invitation</p>
-        <h1 class="text-4xl text-gray-800 font-bold mb-4">
-            Hello, <span class="italic text-pink-600">Velavan</span>
-        </h1>
-        <p class="text-gray-500 leading-relaxed mb-10 text-lg">
-            I’ve been thinking of a way to ask you something special... Will you be my Valentine?
-        </p>
+        <h1 class="text-4xl text-pink-600 mb-2">Hey <span id="to-name">Love</span>!</h1>
+        <p class="text-gray-600 text-lg mb-8 italic">"Will you be my Valentine?"</p>
 
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6" id="btn-container">
-            <button id="yes-btn" class="btn-yes w-full sm:w-auto px-12 py-4 rounded-2xl font-bold text-lg">
-                Yes, I will ❤️
+        <div class="flex flex-col gap-4 items-center">
+            <button id="yes-btn" class="btn-yes w-full py-4 rounded-2xl font-bold text-xl">
+                Yes, I will! ❤️
             </button>
-            <button id="no-btn" class="w-full sm:w-auto bg-white text-gray-400 px-10 py-4 rounded-2xl font-medium border border-gray-100 hover:bg-gray-50">
-                No
-            </button>
+            <div class="h-10">
+                <button id="no-btn" class="px-8 py-2 rounded-xl text-gray-400 font-medium">
+                    No
+                </button>
+            </div>
         </div>
 
-        <div class="mt-12 opacity-40">
-            <p class="text-xs tracking-widest uppercase">— Your Valentine —</p>
-        </div>
+        <div class="mt-8 text-xs text-pink-400 tracking-widest uppercase italic">— <span id="from-name">Someone</span> —</div>
     </div>
 
-    <div class="premium-card hidden animate__animated animate__zoomIn" id="success-card">
+    <div class="love-card hidden animate__animated animate__heartBeat" id="success-card">
         <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHByZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbxxvDUQM/giphy.gif" 
-             class="w-48 h-48 mx-auto rounded-3xl mb-8 shadow-xl border-4 border-white" alt="Happy Cat">
-        <h1 class="text-4xl text-pink-600 font-bold mb-4">Yay! It's a Date 💋</h1>
-        <p class="text-gray-500 italic text-lg leading-relaxed">
-            "You just made my entire year, Velavan. See you on the 14th!"
-        </p>
+             class="w-44 h-44 mx-auto rounded-full mb-6 border-4 border-white shadow-xl" alt="Happy">
+        <h1 class="text-5xl text-pink-600 mb-4">Yay! 💋</h1>
+        <p class="text-gray-600 text-xl font-medium">I'm the luckiest person!</p>
     </div>
 
     <script>
-        const noBtn = document.getElementById('no-btn');
-        const yesBtn = document.getElementById('yes-btn');
-        const mainCard = document.getElementById('main-card');
-        const successCard = document.getElementById('success-card');
+        // BACKGROUND MUSIC LOGIC
+        const music = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+        let isPlaying = false;
 
-        // Function to move the "No" button
-        const moveNo = () => {
-            // Calculate random position within viewport
-            const padding = 100;
-            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-            
-            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
-            
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = `${randomX}px`;
-            noBtn.style.top = `${randomY}px`;
-        };
-
-        // Event Listeners for the "No" button
-        noBtn.addEventListener('mouseenter', moveNo);
-        noBtn.addEventListener('touchstart', (e) => { 
-            e.preventDefault(); 
-            moveNo(); 
-        });
-
-        // Background Animations
-        function createFloater(symbol) {
-            const el = document.createElement('div');
-            el.className = 'floating-element';
-            el.innerHTML = symbol;
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            el.style.animationDuration = (Math.random() * 2 + 4) + 's';
-            document.body.appendChild(el);
-            setTimeout(() => el.remove(), 5000);
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicIcon.innerText = '🔇';
+            } else {
+                music.play();
+                musicIcon.innerText = '🎵';
+            }
+            isPlaying = !isPlaying;
         }
 
-        setInterval(() => createFloater(['❤️','🌸','✨'][Math.floor(Math.random()*3)]), 800);
-
-        // Success Action
-        yesBtn.addEventListener('click', () => {
-            mainCard.classList.add('hidden');
-            successCard.classList.remove('hidden');
-            for(let i=0; i<60; i++) {
-                setTimeout(() => createFloater('💋'), i * 50);
+        // Auto-play on first interaction (Browser requirement)
+        document.body.addEventListener('click', () => {
+            if (!isPlaying) {
+                music.play();
+                isPlaying = true;
+                musicIcon.innerText = '🎵';
             }
+        }, { once: true });
+
+        // CANVAS SPARKLES (Nebula effect)
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() { for (let i = 0; i < 80; i++) particles.push(new Particle()); }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        init(); animate();
+
+        // RUNAWAY NO BUTTON
+        const noBtn = document.getElementById('no-btn');
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
         });
+
+        // YES ACTION
+        const yesBtn = document.getElementById('yes-btn');
+        yesBtn.addEventListener('click', () => {
+            document.getElementById('main-card').classList.add('hidden');
+            document.getElementById('success-card').classList.remove('hidden');
+            for (let i = 0; i < 30; i++) spawnHeart();
+        });
+
+        function spawnHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'heart-particle';
+            heart.style.left = '50vw';
+            heart.style.top = '50vh';
+            heart.style.setProperty('--tx', `${(Math.random() - 0.5) * 400}px`);
+            heart.style.setProperty('--ty', `${(Math.random() - 0.5) * 400}px`);
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+
+        // URL Personalization
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('to-name').innerText = params.get('to') || 'Beautiful';
+        document.getElementById('from-name').innerText = params.get('from') || 'Your Secret Admirer';
+
     </script>
 </body>
-</html>
+                </html>
+    
