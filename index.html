@@ -3,236 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Premium Friendship Portal | Backiyaraj</title>
+    <title>Premium Friendship Portal | 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            background: #fffafa;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-        }
-
-        /* Fixed Width Certificate for Best Download Results */
-        #certificate-capture {
-            background: #ffffff;
-            border: 12px double #B8860B;
-            width: 380px; 
-            padding: 15px;
-            box-sizing: border-box;
-            color: #1e293b;
-            position: relative;
-        }
-        
-        .inner-border {
-            border: 2px solid #D4AF37;
-            padding: 25px 10px;
-            text-align: center;
-            min-height: 600px;
-        }
-
-        .cert-title { font-family: 'Cinzel', serif; color: #4a3701; }
-        .signature-font { font-family: 'Great Vibes', cursive !important; }
-        
-        .stamp-box {
-            margin: 30px auto;
-            position: relative;
-            width: 100px;
-            height: 100px;
-        }
-        .seal-bg {
-            background: #D4AF37;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 2px dashed #fff;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: rotate(-10deg);
-        }
-
-        .petal {
-            position: fixed;
-            top: -10%;
-            z-index: 1;
-            pointer-events: none;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(0vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-        }
-
+        body { background: #fdfcfb; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; margin: 0; }
+        .btn-gold { background: linear-gradient(45deg, #B8860B, #D4AF37); color: white; box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3); }
         .hidden { display: none !important; }
-        .btn-gold { background: linear-gradient(45deg, #B8860B, #D4AF37); color: white; }
+        
+        .falling-emoji { position: absolute; z-index: 150; touch-action: none; user-select: none; cursor: crosshair; }
+        
+        #certificate-capture { background: #ffffff; border: 12px double #B8860B; width: 360px; padding: 15px; box-sizing: border-box; color: #1e293b; position: relative; }
+        .inner-border { border: 2px solid #D4AF37; padding: 25px 10px; text-align: center; min-height: 580px; position: relative; }
+        
+        /* Premium Wax Seal Stamp */
+        .golden-stamp { 
+            position: absolute; bottom: 80px; right: 20px; width: 90px; height: 90px; 
+            background: radial-gradient(circle, #b91c1c, #7f1d1d); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            border: 3px solid #991b1b;
+            transform: rotate(-15deg); 
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.4), 3px 5px 12px rgba(0,0,0,0.4);
+            z-index: 10;
+        }
+        .stamp-inner {
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 50%; width: 72px; height: 72px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .signature-font { font-family: 'Great Vibes', cursive !important; }
+        .cert-title { font-family: 'Cinzel', serif; color: #4a3701; }
     </style>
 </head>
-<body>
+<body class="flex items-center justify-center min-h-screen p-4">
 
     <audio id="bg-music" loop>
-        <source src="https://files.catbox.moe/x54pe8.mp3" type="audio/mpeg">
+        <source src="https://files.catbox.moe/2zwxy1.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="step-1" class="z-20 w-[90%] max-w-md p-8 bg-white rounded-[30px] shadow-2xl text-center">
-        <h2 class="text-xl font-black mb-6 uppercase tracking-widest">Security Check</h2>
+    <div id="step-1" class="z-20 w-full max-w-md p-8 bg-white rounded-[30px] shadow-2xl text-center">
+        <h2 class="text-xl font-black mb-6 uppercase tracking-widest text-slate-800">Security Check</h2>
         <input type="text" id="friend-name" placeholder="Enter Your Name" class="w-full p-4 border-2 rounded-2xl mb-6 text-center font-bold outline-none border-slate-200 focus:border-yellow-500">
-        <button onclick="startExperience()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:scale-105 transition-transform">Proceed</button>
+        <button onclick="startExperience()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all">Proceed</button>
     </div>
 
-    <div id="step-2" class="hidden z-20 w-[90%] max-w-lg p-10 bg-white rounded-[30px] shadow-2xl text-center">
-        <h3 class="text-yellow-600 font-bold mb-2">MESSAGE</h3>
-        <p id="main-quote" class="text-lg italic mb-10">"A true friend is the greatest of all blessings."</p>
-        
-        <p id="instruction-text" class="text-lg text-pink-500 font-bold mb-8 animate__animated animate__pulse animate__infinite">Do you agree to renew our bond for 2026?</p>
-        
-        <div class="flex flex-col gap-6 items-center min-h-[100px]">
-            <button id="agree-btn" onclick="handleAgree()" class="px-12 py-4 btn-gold rounded-full font-bold shadow-lg transition-all duration-200">I Agree</button>
-            <button id="disagree-btn" class="text-slate-400 font-medium hover:line-through">I Disagree</button>
+    <div id="step-2" class="hidden z-20 w-full max-w-lg p-10 bg-white rounded-[30px] shadow-2xl text-center">
+        <div class="mb-8 italic text-slate-700 text-2xl font-serif" id="quote-area">
+            "A real friend is one who walks in when the rest of the world walks out."
+        </div>
+        <p id="instruction-text" class="text-lg text-slate-700 font-bold mb-8">Do you agree to renew our bond for 2026?</p>
+        <div class="relative h-24 flex justify-center gap-4">
+            <button id="agree-btn" onclick="handleAgree()" class="px-8 py-3 btn-gold rounded-full font-bold shadow-lg z-10">I Agree</button>
+            <button id="disagree-btn" onmouseover="moveDisagree()" class="px-8 py-3 bg-gray-200 text-gray-500 rounded-full font-bold transition-all">Disagree</button>
         </div>
     </div>
 
-    <div id="step-3" class="hidden z-20 flex flex-col items-center w-full py-5">
+    <div id="game-page" class="hidden fixed inset-0 z-[100] bg-slate-900/95 flex flex-col items-center justify-center">
+        <div class="text-center z-[200] bg-white p-4 rounded-2xl shadow-2xl border-4 border-yellow-500">
+            <h2 class="text-2xl font-black text-slate-800">CATCH 15 EMOJIS! ⚡</h2>
+            <p class="text-xl font-bold text-red-600">Score: <span id="score">0</span> / 15</p>
+        </div>
+        <div id="emoji-container" class="absolute inset-0 overflow-hidden"></div>
+    </div>
+
+    <div id="math-step" class="hidden z-20 w-full max-w-md p-8 bg-white rounded-[30px] shadow-2xl text-center">
+        <h2 class="text-2xl font-bold mb-4">Final Check 🤖</h2>
+        <p class="mb-6 text-slate-600">Solve: <br>
+            <span id="math-question" class="text-4xl font-black text-yellow-600"></span>
+        </p>
+        <input type="number" id="math-answer" class="w-full p-4 border-2 rounded-2xl mb-6 text-center text-2xl font-bold border-yellow-500">
+        <button onclick="verifyMath()" class="w-full btn-gold py-4 rounded-2xl font-bold">Verify & Finish</button>
+    </div>
+
+    <div id="step-5" class="hidden flex flex-col items-center w-full py-5">
         <div id="certificate-capture">
             <div class="inner-border">
-                <p style="font-size: 10px; letter-spacing: 2px; color: #b8860b; font-weight: bold; text-transform: uppercase;">International Friendship Council</p>
-                <h1 class="cert-title" style="font-size: 22px; margin: 15px 0;">CERTIFICATE OF LOYALTY</h1>
+                <p style="font-size: 10px; color: #b8860b; font-weight: bold; letter-spacing: 2px;">GLOBAL FRIENDSHIP ALLIANCE</p>
+                <h1 class="cert-title" style="font-size: 18px; margin: 15px 0;">CERTIFICATE OF LOYALTY</h1>
+                <p style="font-style: italic; color: #64748b; font-size: 11px;">Bond established between</p>
+                <h2 style="font-size: 22px; font-weight: bold; margin: 5px 0;">BACKIYARAJ</h2>
+                <div style="font-size: 30px; margin: 10px 0;">✨ 🤝 ✨</div>
+                <h2 id="cert-friend-name" style="font-size: 22px; font-weight: bold; margin: 5px 0; text-transform: uppercase;">NAME</h2>
                 
-                <p style="font-style: italic; color: #64748b; font-size: 12px;">This acknowledges the bond between</p>
-                <h2 style="font-size: 24px; font-weight: bold; margin: 5px 0; color: #000;">BACKIYARAJ</h2>
-                <div style="font-size: 24px; color: #D4AF37;">&infin;</div>
-                <h2 id="cert-friend-name" style="font-size: 24px; font-weight: bold; margin: 5px 0; text-transform: uppercase; color: #000;">NAME</h2>
-
-                <p style="font-size: 12px; color: #475569; margin: 20px 10px; line-height: 1.5; font-weight: 600;">
-                    This certificate guarantees 365 days of laughter, loyalty, and support. No expiration date applies to this soul-level connection.
-                </p>
-                
-                <div class="stamp-box">
-                    <div class="seal-bg">
-                        <div style="color: white; font-size: 8px; font-weight: bold;">OFFICIAL<br>BOND</div>
+                <div class="golden-stamp">
+                    <div class="stamp-inner">
+                        <span style="font-size: 10px; color: #fff; font-weight: 900; text-align: center; line-height: 1;">OFFICIAL<br>2026<br>SEAL</span>
                     </div>
-                    <div class="signature-font" id="stamp-friend-name" style="position: absolute; top: 30px; left: -25px; width: 150px; font-size: 22px; color: #1e293b; transform: rotate(-5deg); text-shadow: 1px 1px 0 white;">Friend Name</div>
                 </div>
 
-                <table style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+                <p style="font-size: 13px; color: #475569; margin: 20px 10px; font-weight: 600;">
+                    "Friendship is the only gold that never loses its shine."
+                </p>
+                
+                <table style="width: 100%; margin-top: 50px;">
                     <tr>
-                        <td style="width: 50%; text-align: center; vertical-align: bottom;">
-                            <div class="signature-font" style="font-size: 22px;">Backiyaraj</div>
-                            <div style="width: 80%; height: 1px; background: #cbd5e1; margin: 2px auto;"></div>
-                            <div style="font-size: 8px; font-weight: bold; color: #94a3b8;">PARTY A</div>
+                        <td style="text-align: center; width: 50%;">
+                            <div class="signature-font" style="font-size: 24px;">Backiyaraj</div>
+                            <div style="width: 80px; height: 1px; background: #cbd5e1; margin: 2px auto;"></div>
+                            <div style="font-size: 8px; font-weight: bold; color: #94a3b8;">SENDER</div>
                         </td>
-                        <td style="width: 50%; text-align: center; vertical-align: bottom;">
-                            <div class="signature-font" id="sig-friend" style="font-size: 22px;">Friend</div>
-                            <div style="width: 80%; height: 1px; background: #cbd5e1; margin: 2px auto;"></div>
-                            <div style="font-size: 8px; font-weight: bold; color: #94a3b8;">PARTY B</div>
+                        <td style="text-align: center; width: 50%;">
+                            <div class="signature-font" id="sig-friend" style="font-size: 24px;">Friend</div>
+                            <div style="width: 80px; height: 1px; background: #cbd5e1; margin: 2px auto;"></div>
+                            <div style="font-size: 8px; font-weight: bold; color: #94a3b8;">LOYAL FRIEND</div>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
-        
-        <button id="downloadBtn" onclick="downloadCertificate()" class="my-6 btn-gold px-10 py-4 rounded-full font-black shadow-xl">
-            📥 DOWNLOAD HD CERTIFICATE
-        </button>
+        <button onclick="downloadCertificate()" class="my-6 btn-gold px-12 py-4 rounded-full font-black">📥 DOWNLOAD HD CERTIFICATE</button>
     </div>
 
     <script>
-        let clickCount = 0;
+        let score = 0;
+        let agreeClicks = 0;
         let fName = "";
-        const music = document.getElementById('bg-music');
-        const instruction = document.getElementById('instruction-text');
-        const agreeBtn = document.getElementById('agree-btn');
+        let currentAnswer = 0;
+        const audio = document.getElementById('bg-music');
 
         function startExperience() {
             fName = document.getElementById('friend-name').value;
             if (!fName.trim()) { alert("Please enter your name!"); return; }
             
-            // Start Music
-            music.play().catch(e => console.log("Music waiting for gesture"));
-            
+            // Explicitly play audio here
+            audio.play().catch(e => console.log("Audio waiting for user interaction."));
+
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
         }
 
         function handleAgree() {
-            // Ensure music plays
-            music.play();
+            // Force audio play again just in case
+            audio.play();
+            agreeClicks++;
             
-            clickCount++;
+            const instruction = document.getElementById('instruction-text');
+            const quote = document.getElementById('quote-area');
 
-            if (clickCount === 1) {
-                instruction.innerText = "Please 🥺 click once again";
-                moveButton(agreeBtn);
-            } else if (clickCount === 2) {
-                instruction.innerText = "Are you sure? Click it again! 🧐";
-                moveButton(agreeBtn);
-            } else if (clickCount === 3) {
-                instruction.innerText = "Last one! Promise! ✨";
-                moveButton(agreeBtn);
-            } else {
-                showCertificate();
+            if (agreeClicks === 1) {
+                instruction.innerText = "Wow! You really mean it? Click again! ❤️";
+                quote.innerText = "“Anything is possible when you have the right people there to support you.”";
+            } else if (agreeClicks === 2) {
+                instruction.innerText = "I knew you were the best! One last time! ✨";
+                quote.innerText = "“Life was meant for good friends and great adventures.”";
+            } else if (agreeClicks === 3) {
+                startEmojiGame();
             }
         }
 
-        function moveButton(btn) {
-            // Reduced movement range so it doesn't fly off screen too far
-            const x = Math.random() * (window.innerWidth - 150);
-            const y = Math.random() * (window.innerHeight - 100);
+        function moveDisagree() {
+            const btn = document.getElementById('disagree-btn');
             btn.style.position = 'fixed';
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+            btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
         }
 
-        // Runaway disagree button
-        document.getElementById('disagree-btn').addEventListener('mouseover', function() {
-            moveButton(this);
-        });
-
-        function showCertificate() {
+        function startEmojiGame() {
             document.getElementById('step-2').classList.add('hidden');
-            document.getElementById('step-3').classList.remove('hidden');
-            document.getElementById('cert-friend-name').innerText = fName;
-            document.getElementById('sig-friend').innerText = fName;
-            document.getElementById('stamp-friend-name').innerText = "Backiyaraj & " + fName;
+            document.getElementById('game-page').classList.remove('hidden');
+            const container = document.getElementById('emoji-container');
+            const emojis = ['❤️', '🤝', '💎', '🔥', '✨'];
+            
+            const gameInterval = setInterval(() => {
+                if(score >= 15) { clearInterval(gameInterval); return; }
+                
+                const e = document.createElement('div');
+                e.className = 'falling-emoji';
+                e.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                e.style.fontSize = (Math.random() * 20 + 30) + 'px';
+                e.style.left = Math.random() * 85 + 'vw';
+                e.style.top = '-50px';
+                container.appendChild(e);
+
+                let pos = -50;
+                let speed = Math.random() * 4 + 7; // Faster speed (7-11)
+                
+                const fall = setInterval(() => {
+                    if (pos > window.innerHeight) { clearInterval(fall); e.remove(); }
+                    else { 
+                        pos += speed; 
+                        e.style.top = pos + 'px';
+                        e.style.transform = `translateX(${Math.sin(pos/30) * 15}px)`; // Swaying effect
+                    }
+                }, 20);
+
+                const collect = (ev) => {
+                    ev.preventDefault();
+                    score++;
+                    document.getElementById('score').innerText = score;
+                    e.remove();
+                    if (score >= 15) {
+                        clearInterval(gameInterval);
+                        document.getElementById('game-page').classList.add('hidden');
+                        generateMath();
+                        document.getElementById('math-step').classList.remove('hidden');
+                    }
+                };
+                
+                e.addEventListener('mousedown', collect);
+                e.addEventListener('touchstart', collect);
+            }, 400); // More frequent emoji spawn
+        }
+
+        function generateMath() {
+            const n1 = Math.floor(Math.random() * 10) + 6;
+            const n2 = Math.floor(Math.random() * 8) + 4;
+            currentAnswer = n1 * n2;
+            document.getElementById('math-question').innerText = `${n1} × ${n2}`;
+        }
+
+        function verifyMath() {
+            const ans = document.getElementById('math-answer').value;
+            if (parseInt(ans) === currentAnswer) {
+                document.getElementById('math-step').classList.add('hidden');
+                document.getElementById('step-5').classList.remove('hidden');
+                document.getElementById('cert-friend-name').innerText = fName;
+                document.getElementById('sig-friend').innerText = fName;
+            } else {
+                alert("Wrong! Focus pannunga friend! 😂");
+                generateMath();
+            }
         }
 
         function downloadCertificate() {
             const cert = document.getElementById('certificate-capture');
-            const btn = document.getElementById('downloadBtn');
-            btn.innerText = "Generating HD PNG...";
-
-            html2canvas(cert, {
-                scale: 3, 
-                useCORS: true,
-                backgroundColor: "#ffffff",
-                logging: false
-            }).then(canvas => {
+            html2canvas(cert, { scale: 3 }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = `Friendship_Bond_2026.png`;
-                link.href = canvas.toDataURL('image/png');
+                link.href = canvas.toDataURL();
                 link.click();
-                btn.innerText = "📥 DOWNLOAD HD CERTIFICATE";
             });
-        }
-
-        // Petals
-        for (let i = 0; i < 15; i++) {
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.innerHTML = `<svg width="15" height="15"><path d="M7 0C10 3 14 7 7 14C0 7 4 3 7 0Z" fill="#ffb7c5"/></svg>`;
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animationDuration = (5 + Math.random() * 5) + 's';
-            document.body.appendChild(petal);
         }
     </script>
 </body>
